@@ -10,7 +10,21 @@ namespace Dynamics365_CaesarCipher
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(CaesarCipher(""));
+            // While user's input causes an exception, asks for input until the encryption runs correctly
+            bool exceptionThrown = true;
+            while (exceptionThrown)
+            {
+                Console.Write("Enter the string that you want encrypted. Ensure you use the format '#####:characters to be encrypted' --> ");
+                try
+                {   // Gets input, uses the input in the CaesarCipher method, then outputs the encrypted string
+                    Console.WriteLine("\nHere is your encrypted string: " + CaesarCipher(Console.ReadLine()));
+                    exceptionThrown = false;
+                }
+                catch (Exception)
+                {   // If exception is thrown, the while loop will continue asking for input
+                    Console.WriteLine("Try again!");
+                }
+            }
             Console.ReadLine();
         }
 
