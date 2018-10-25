@@ -10,7 +10,8 @@ namespace Dynamics365_CaesarCipher
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(CaesarCipher("-1:STRING"));
+            Console.WriteLine(CaesarCipher("1000000000:STRING"));
+            Console.ReadLine();
         }
 
         static string CaesarCipher(string unencryptedStringInput)
@@ -55,6 +56,16 @@ namespace Dynamics365_CaesarCipher
             }
             arrIndex++;
             shiftNumber = Convert.ToInt32(shiftString);
+
+            if (unencryptedInputCharArray.Length - arrIndex > 200)
+            {
+                throw new ArgumentOutOfRangeException("Character length can only be up to 200 characters.");
+            }
+
+            if (shiftNumber < -1000000000 || shiftNumber > 1000000000)
+            {
+                throw new ArgumentOutOfRangeException("Shift number must be between -1000000000 and 1000000000 (between -1Bil and 1Bil).");
+            }
 
             char[] encryptedCharArray = new char[unencryptedInputCharArray.Length - arrIndex];
             for (int i = 0; i < unencryptedInputCharArray.Length - arrIndex; i++)
@@ -109,7 +120,7 @@ namespace Dynamics365_CaesarCipher
                     if (unicodeVal > 64 && unicodeVal < 91)
                     {
                         unicodeVal += shiftNumber;
-                        while (unicodeVal < 65)
+                        while (unicodeVal > 90)
                         {
                             unicodeVal -= 26;
                         }
@@ -119,7 +130,7 @@ namespace Dynamics365_CaesarCipher
                     if (unicodeVal > 96 && unicodeVal < 123)
                     {
                         unicodeVal += shiftNumber;
-                        while (unicodeVal < 97)
+                        while (unicodeVal > 122)
                         {
                             unicodeVal -= 26;
                         }
@@ -129,7 +140,7 @@ namespace Dynamics365_CaesarCipher
                     if (unicodeVal > 47 && unicodeVal < 58)
                     {
                         unicodeVal += shiftNumber;
-                        while (unicodeVal < 48)
+                        while (unicodeVal > 57)
                         {
                             unicodeVal -= 10;
                         }
