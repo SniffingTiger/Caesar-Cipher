@@ -10,33 +10,32 @@ namespace Dynamics365_CaesarCipher
     {
         static void Main(string[] args)
         {
-            CaesarCipher("2:STRING");
-            Console.WriteLine(char.ConvertFromUtf32(90));
+            Console.WriteLine(CaesarCipher("-1:STRING"));
         }
 
         static string CaesarCipher(string unencryptedStringInput)
         {
             string encryptedString = "";
+            int arrIndex = 0;
 
             char[] unencryptedInputCharArray = new char[unencryptedStringInput.Length];
 
             unencryptedInputCharArray = unencryptedStringInput.ToCharArray();
-
-            if (!char.IsDigit(unencryptedInputCharArray[0]))
-            {
-                throw new FormatException("Your string must begin with a number that specifies how many places the string should be moved.");
-            }
-
-            string shiftString = "";
-            bool isDigit = true;
-            int arrIndex = 0;
-            int shiftNumber;
 
             // If the number is negative, start looking for digits after the negative symbol
             if (unencryptedInputCharArray[0] == '-')
             {
                 arrIndex = 1;
             }
+
+            if (!char.IsDigit(unencryptedInputCharArray[arrIndex]))
+            {
+                throw new FormatException("Your string must begin with a number that specifies how many places the string should be moved.");
+            }
+
+            string shiftString = "";
+            bool isDigit = true;
+            int shiftNumber;
 
             while (isDigit)
             {
@@ -63,7 +62,7 @@ namespace Dynamics365_CaesarCipher
                 encryptedCharArray[i] = unencryptedInputCharArray[i + arrIndex];
             }
 
-            if (unencryptedInputCharArray[0] != '-')
+            if (unencryptedInputCharArray[0] == '-')
             {
                 for (int i = 0; i < encryptedCharArray.Length; i++)
                 {
