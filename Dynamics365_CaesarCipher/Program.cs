@@ -20,9 +20,10 @@ namespace Dynamics365_CaesarCipher
                     Console.WriteLine("\nHere is your encrypted string: " + CaesarCipher(Console.ReadLine()));
                     exceptionThrown = false;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {   // If exception is thrown, the while loop will continue asking for input
-                    Console.WriteLine("Try again!");
+                    Console.Write("The following error has occured: " + ex.Message);
+                    Console.WriteLine("  Try again!");
                 }
             }
             Console.ReadLine();
@@ -32,6 +33,12 @@ namespace Dynamics365_CaesarCipher
         {
             // arrIndex tracks our position in the character array
             int arrIndex = 0;
+            
+            // If the input is empty, throw a Format Exception
+            if (unencryptedStringInput == "" || unencryptedStringInput is null)
+            {
+                throw new FormatException("Your input cannot be empty.");
+            }
 
             // Create new character array to store all the characters in the input string
             char[] unencryptedInputCharArray = new char[unencryptedStringInput.Length];
